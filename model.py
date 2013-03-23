@@ -68,28 +68,41 @@ def get_tasks(db, user_id=None):
 # gets all the tasks for the given user id.	
 	c = db.cursor()
 	tasks_list = []
-	query = """SELECT title, due_date, completed_at from Tasks where user_id = ?"""
-	c.execute(query, (user_id,))
-	results = c.fetchall()
-	if results:
-		for result in results:
-			holder_dict = {}
-			holder_dict['tite'] = result[0]
-			holder_dict['due_date'] = result[1]
-			holder_dict['completed'] =result[2]
-			tasks_list.append(holder_dict)
-		return tasks_list
+	
+	#check if user id is NONE
+	if user_id == None:
+		#query all tasks
+		query = """SELECT * from Tasks"""
+		c.execute(query,)
+		results = c.fetchall()
+	#if there is a user id, run query for that user
 	else:
-		query2 = """SELECT title, due_date, completed_at from Tasks"""
-		c.execute(query2,)
-		results2 = c.fetchall()
-		for result in results2:
-			holder_dict = {}
-			holder_dict['tite'] = result[0]
-			holder_dict['due_date'] = result[1]
-			holder_dict['completed'] =result[2]
-			tasks_list.append(holder_dict)
-		return tasks_list
+		query = """SELECT * from Tasks where user_id = ?"""
+		c.execute(query,(user_id,))
+		results = c.fetchall()
+	#loop through results and create a dictionary of the results
+	for result in results:
+		holder_dict = {}
+		holder_dict['id'] = result[0]
+		holder_dict['title'] = result[1]
+		holder_dict['create_at'] =result[2]
+		holder_dict['due_date'] =result[3]
+		holder_dict['completed_at'] =result[4]
+		holder_dict['user_id'] =result[5]
+		tasks_list.append(holder_dict)
+	
+	return tasks_list
+
+def get_task(db, task_id):
+	c = db.cursor()
+	query = """SELECT * FROM Tasks WHERE id = ?"""
+	c.execute(query, (task_id,))
+	result = c.fetchone()
+	if result:
+		fields = ["id", "title", "created_at", "due_date", "completed_at", "user_id"]
+		return dict(zip(fields, result))
+	#Else return none
+	return None
 
 
 
@@ -97,3 +110,19 @@ def get_tasks(db, user_id=None):
 
 	
 	
+# CREATE TABLE Users (
+# id INTEGER PRIMARY KEY,
+# email varchar(64),
+# password varchar(64),
+# fname varchar(64),
+# lname varchar(64)
+# );
+
+# CREATE TABLE Tasks (
+# id INTEGER PRIMARY KEY,
+# title varchar(128),
+# created_at DATETIME,
+# due_date DATETIME,
+# completed_at DATETIME,
+# user_id INT
+# );
