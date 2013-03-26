@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Tipsy</title>
-		<meta name="viewport" content="width=devise-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-	</head>
-	<body>
-		<div class="container">
-		<h1> Welcome to Tipsy, {{ user_name}}</h1>
-	</div>
-	</body>
-</html>
+{% extends "layout.html" %}
+{% block body %}
+	<h1> Welcome to Tipsy, {{ user_name}}</h1>
+{% endblock %}

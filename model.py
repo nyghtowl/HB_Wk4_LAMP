@@ -11,8 +11,13 @@ def new_user(db, email, password, fname, lname):
 	c = db.cursor()
 	query = """INSERT INTO Users VALUES (NULL, ?, ?, ?, ?)"""
 	result = c.execute(query, (email, password, fname, lname))
-	db.commit()
-	return result.lastrowid
+	if result:
+		db.commit()
+		return result.lastrowid
+
+def make_user(row):
+	fields = ["id", "email", "password", "first_name", "last_name"]
+	return dict(zip(fields, row))
 
 def authenticate(db, email, password):
 
@@ -26,15 +31,14 @@ def authenticate(db, email, password):
 	result = c.fetchone()
 	# If result exists, create a dictionary
 	if result:
-		fields = ["id", "email", "password", "first_name", "last_name"]
-		return dict(zip(fields, result))
+		return make_user(result)
 	#Else return none
 	return None
 
 def new_task(db, title, user_id):
 	c = db.cursor()
 	#Insert new task into db
-	query = """INSERT INTO Tasks VALUES (NULL, ?, NULL, NULL, NULL, ?)"""
+	query = """INSERT INTO Tasks VALUES (NULL, ?, DATETIME('now'), NULL, NULL, ?)"""
 	#run query
 	result = c.execute(query, (title, user_id))
 	#commit query
@@ -49,8 +53,7 @@ def get_user(db, id):
  	c.execute(query, (id,))
  	result = c.fetchone()
  	if result:
- 		keys = ["id", "email", "password", "first_name", "last_name"]
- 		return dict(zip(keys, result))
+ 		return make_user(result)
  	return None
 
 def complete_task(db, task_id):

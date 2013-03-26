@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+    <!-- printing task and the task id with an mdash with completed if completed-->
+    <h1>Task{{ task['id'] }} &mdash; {% if task['completed_at'] %}<span class="status">Completed</span>{% endif %}</h1>
+    <h2>{{ task['title'] }}</h2>
+    <!-- url_for function that allows for dynamic calling of paths-->
+    <form action="{{url_for('view_task', id=task['id'])}}" method="POST">
+    <!-- submit button passes back and stores the todays date and time for the task if complete-->
+    <input type="submit" value="Complete Task">
+    </form>    
+{% endblock %}

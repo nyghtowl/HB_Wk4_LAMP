@@ -15,13 +15,6 @@ def index():
 		return render_template("index.html", user_name=escape(session['username']))
 	return 'You are not logged in'
 
-# view which is also a function
-@app.route("/tasks")
-def list_tasks():
-	db = model.connect_db()
-	tasks_from_db = model.get_tasks(db, None)
-	return render_template("list_tasks.html", tasks=tasks_from_db)
-
 # take in user input to add tasks
 @app.route("/new_task")
 def new_tasks():
@@ -30,12 +23,35 @@ def new_tasks():
 	#insert_tasks_db = model.new_task(db, title, userid)
 	return render_template("new_task.html")
 
+# runs function to save to the db
 @app.route("/save_task", methods=["POST"])
 def save_task():
 	task_title = request.form['add_title']
 	db = model.connect_db()
 	# Assume that all tasks are attached to user 1.
+	# Need to automate
 	task_id = model.new_task(db, task_title, 1)
+	return redirect("/tasks")
+
+# view which is also a function that lists multiple tasks
+@app.route("/tasks")
+def list_tasks():
+	db = model.connect_db()
+	tasks_from_db = model.get_tasks(db, None)
+	return render_template("list_tasks.html", tasks=tasks_from_db)
+
+# view a single task
+@app.route("/task/<int:id>", methods=["GET"])
+def view_task(id):
+	db = model.connect_db()
+	task_from_db = model.get_task(db, id)
+	return render_template("view_task.html", task=task_from_db)
+
+#complete task
+@app.route("/task/<int:id>", methods=["POST"])
+def complete_task(id):
+	db=model.connect_db()
+	model.complete_task(db, id)
 	return redirect("/tasks")
 
 #Add ability to login as a particular user
