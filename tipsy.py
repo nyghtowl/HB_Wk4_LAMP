@@ -2,7 +2,8 @@
 tipsy.py -- A flask-based todo list
 """
 
-from flask import Flask, render_template, request, redirect
+#Added session, url_for, escape for username login
+from flask import Flask, render_template, request, redirect, url_for, escape, session
 # importa model file
 import model
 
@@ -10,7 +11,9 @@ import model
 app = Flask(__name__)
 @app.route("/")
 def index():
-	return render_template("index.html", user_name="Marissa & Melanie")
+	if 'username' in session:
+		return render_template("index.html", user_name=escape(session['username']))
+	return 'You are not logged in'
 
 # view which is also a function
 @app.route("/tasks")
@@ -34,6 +37,40 @@ def save_task():
 	# Assume that all tasks are attached to user 1.
 	task_id = model.new_task(db, task_title, 1)
 	return redirect("/tasks")
+
+#Add ability to login as a particular user
+#create login form (in login.html)
+#def function called login
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	db = model.connect_db()
+	if request.method == 'POST':
+		session['username'] = request.form['username']
+		session['password'] = request.form['password']
+		if model.authenticate(db, session['username'], session['password']):
+			return redirect(url_for('index'))
+	return '''
+		<form action="" method="post">
+			<p><input type=text name=username>
+			<p><input type= text name=password>
+			<p><input type=submit value=Login>
+		</form>
+	'''
+#accept user login (user's email)
+#compare user login to db, make sure user email exists
+#check password
+#create session
+
+
+@app.route('/logout')
+def logout():
+	#remove the username from the session if it's there
+	session.pop('username', None)
+	return redirect(url_for('index'))
+
+#set the secret key. keep this really secret:
+app.secret_key = 'A0Zr98j/3yX R~XHH! jmN]LWX/ , ?RT'
+
 
 
 if __name__ == "__main__":
