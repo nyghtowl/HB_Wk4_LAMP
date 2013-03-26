@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Task List</title>
+		<!-- Following style allows adjust of style based on size of screen-->
+		<meta name="viewport" content="width=devise-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+	</head>
+	<body>
+		<!-- div is a box and below is a standard format referenced-->
+		<div class="container">
+
+		<h1>Task List </h1>
+		<ul>
+		{% for item in tasks %}
+			<li>Task {{item.id}}: {{ item.title }} </li>
+		{% endfor %}
+		</ul>
+		</div>
+	
+	</body>
+</html>

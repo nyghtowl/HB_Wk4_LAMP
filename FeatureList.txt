@@ -1,0 +1,41 @@
+A user can create an account
+A user can log in
+A user can view her list
+A user must be able to add a new task
+Task components should be name of task, description, due date and time
+A user must be able to edit a task list
+A user should be able to mark a task as complete
+
+V2.0 add reminders to task
+
+Users
+id - INT Unique
+email - Varchar(64)
+password - varchar(64)
+fname - varchar(64) 
+lname - varchar(64)
+
+Tasks
+id - INT Uniqe
+title - Varchar(128)
+created_at - Datetime
+due_date - Datetime
+completed_at - Datetime
+user_id - INT Unique
+
+sCREATE TABLE Users (
+id INT AUTO_INCREMENT,
+email varchar(64),
+password varchar(64),
+fname varchar(64),
+lname varcar(64)
+)
+
+CREATE TABLE Tasks (
+id INT AUTO_INCREMENT,
+title varchar(128),
+created_at DATETIME,
+due_date DATETIME,
+completed_at DATETIME,
+user_id INT
+);

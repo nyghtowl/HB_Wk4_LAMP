@@ -74,12 +74,11 @@ def get_tasks(db, user_id=None):
 		#query all tasks
 		query = """SELECT * from Tasks"""
 		c.execute(query,)
-		results = c.fetchall()
 	#if there is a user id, run query for that user
 	else:
 		query = """SELECT * from Tasks where user_id = ?"""
 		c.execute(query,(user_id,))
-		results = c.fetchall()
+	results = c.fetchall()
 	#loop through results and create a dictionary of the results
 	for result in results:
 		holder_dict = {}
