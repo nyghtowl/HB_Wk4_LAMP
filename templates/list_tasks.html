@@ -5,12 +5,12 @@
 		<ul>
 		<!-- for loop through task list that prints a list of results one feature directly usable in Jinja is dictionary access. Also the if statement is used to display complete status if its complete.-->
 		{% for task in tasks %}
-		<li><a href="{{url_for('view_task', id=task['id'])}}">Task {{ task['id'] }}</a>: {{task['title'] }}{% if task['completed_at'] %} &mdash; Completed{% endif %}</li>
+		<li><a href="{{ url_for('view_task', id=task['id']) }}">Task {{ task['id'] }}</a>: {{task['title'] }}{% if task['completed_at'] %} &mdash; Completed{% endif %}</li>
 		{% endfor %}
 	</ul>
 	</div>
 	<!-- This allows us to take in a new task-->
-	<form method="POST" action="/save_task">
+	<form method="POST" action="{{ url_for('save_task') }}">
 		<label for"title">New Task Item</label>
 		<input type="text" name="add_title" id="add_title"></input>
 		<input type="submit"></input>
