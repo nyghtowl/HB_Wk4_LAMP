@@ -1,0 +1,49 @@
+<!-- javascript DOM Exercise with bonus-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Book List</title>
+</head>
+
+<h1>My Book List</h1>
+<script>
+// object that holds the books
+var books = [
+{title: 'The Design of EveryDay Things',
+img: 'http://ecx.images-amazon.com/images/I/41j2ODGkJDL._AA115_.jpg',
+author: 'Don Norman',
+alreadyRead: false}, 
+{title: 'The Most Human Human',
+img: 'http://ecx.images-amazon.com/images/I/41Z56GwEv9L._AA115_.jpg',
+author: 'Brian Christian',
+alreadyRead: true}];
+
+// put outside the loop since the loop to set the frame for he list
+var bookList = document.createElement('ul');
+// print the book info to the page
+for (var i=0; i < books.length; i++){
+	// sets the list tag on each books item
+	var bookItem = document.createElement('li');
+	// creates img tag
+	var bookImg = document.createElement('img');
+	// assigns source based on what is in each item of books
+	bookImg.src = books[i].img
+	//adds image to bookItem
+	bookItem.appendChild(bookImg);
+	// asigns created text content to booksDescription var
+	var bookDescription = document.createTextNode(books[i].title + ' by ' + books[i].author);
+	//appends Book Description to list - after paragraph tag
+	bookItem.appendChild(bookDescription);
+	// takes the class of books and determines state to assign color
+	if (books[i].alreadyRead) {
+		bookItem.style.color = 'pink';
+	}
+	bookList.appendChild(bookItem);
+	//prints the content of list on screen
+	document.body.appendChild(bookList);
+	}
+
+</script>
+
+</html>

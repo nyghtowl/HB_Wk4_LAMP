@@ -1,0 +1,25 @@
+<!-- cat walk exercise-->
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Cat Walk</title>
+ </head>
+ <body>
+  
+  <img style="position:absolute;" src="http://www.anniemation.com/clip_art/images/cat-walk.gif">
+  
+  <script>
+  var img = document.getElementsByTagName('img')[0];
+  img.style.position = 'absolute';
+  img.style.left = '0x';
+  function catWalk() {
+    var oldLeft = parseInt(img.style.left);
+    var newLeft = oldLeft + 10;
+  	img.style.left = newLeft + 'px';
+  }
+  window.setInterval(catWalk, 50);
+  </script>
+
+ </body>
+</html>

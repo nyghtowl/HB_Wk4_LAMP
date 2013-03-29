@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>About Me</title>
+  <style>
+  .listitem {color:purple;}
+  </style>
+</head>
+<!-- you can put a style tag in body or ul or li to set style elements-->
+<body>
+  <h1>About Me</h1>
+  
+  <ul>
+    <li>Name:<span id="name"></span>
+    <li>Age:<span id="age"></span>
+    <li>Hometown: Houston<span id="hometown"></span>
+   </ul>
+  
+ <script> 
+ 	document.body.style.fontFamily = 'Arial, sans-serif';
+ 	document.getElementById('name').innerHTML = 'Charles';
+ 	document.getElementById('age').innerHTML = '20';
+ 	document.getElementById('hometown').innerHTML = 'Charleston';
+ 	
+
+ 	// gets all items by li and apply class style 
+ 	var items = document.getElementsByTagName('li');
+ 	for (var i=0; i<items.length; i++) {
+ 		items[i].className = 'listitem';
+ 	}
+
+ 	var myPic = document.createElement('img');
+ 	myPic.src = 'http://gotocon.com/dl/jaoo_aus2008/photos/speakers/Pamela_Fox.jpg';
+ 	document.body.appendChild(myPic);
+
+ </script>
+
+ </body>
+</html>

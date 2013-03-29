@@ -1,0 +1,33 @@
+<!-- javascript DOM Exercise -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Book List</title>
+</head>
+
+<h1>My Book List</h1>
+<script>
+// object that holds the books
+var books = [
+{title: 'The Design of EveryDay Things',
+author: 'Don Norman',
+alreadyRead: false}, 
+{title: 'The Most Human Human',
+author: 'Brian Christian',
+alreadyRead: true}];
+
+// print the book info to the page
+for (var i=0; i < books.length; i++){
+	var bookP = document.createElement('p');
+	// asigns created text content to booksDescription var
+	var bookDescription = document.createTextNode(books[i].title + ' by ' + books[i].author);
+	//appends Book Description to bookP - after paragraph tag
+	bookP.appendChild(bookDescription);
+	//prints the content of bookP on screen
+	document.body.appendChild(bookP);
+	}
+
+</script>
+
+</html>
