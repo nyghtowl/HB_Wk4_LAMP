@@ -1,4 +1,4 @@
-<!-- cat walk exercise-->
+<!-- cat walk exercise loop correct answer-->
 <!DOCTYPE html>
 <html>
  <head>
@@ -12,23 +12,24 @@
   <script>
   var img = document.getElementsByTagName('img')[0];
   img.style.left = '0px';
-  img.style.right = '0px';
+  var walkForwards = true;
   function catWalk() {
-    // sets the image at the left
     var currentLeft = parseInt(img.style.left);
-   	// adds 10 to the image position shift form left
-    img.style.left = (currentLeft + 10) + 'px';
-    
-    //window.innerWidth captures the window with
-    //compares if current left is larger than window inner width
-    //img.width is the width properity of img
-    if (currentLeft > (window.innerWidth - img.width)) {
-      img.style.left = '0px';
+
+  // if walk forwards is true and at the end of the screen then set walk forward to false    
+    if (walkForwards && ( currentLeft > (window.innerWidth - img.width))) {
+      walkForwards = false;
     }
 
-    //alternative options
-    //img.style.left=(parseInt(img.style.left) + 10) + 'px';
-    //img.style.right=(parseInt(img.style.right) + 10) + 'px';
+  // When walkForwards false and currentLeft <0 0 change walkForwards to true
+    if (!walkForwards && (currentLeft <= 0)) {
+      walkForwards = true;
+    }
+    if(walkForwards) {
+      img.style.left = (currentLeft + 10) + 'px';
+    } else {
+      img.style.left = (currentLeft - 10) + 'px';
+    }
   }
   //moves cat across the scree
   window.setInterval(catWalk, 50);
