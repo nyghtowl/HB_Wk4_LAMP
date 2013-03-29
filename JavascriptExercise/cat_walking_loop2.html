@@ -25,6 +25,7 @@
     if (!walkForwards && (currentLeft <= 0)) {
       walkForwards = true;
     }
+    // if walkForwards true then it will shift img left otherwise right
     if(walkForwards) {
       img.style.left = (currentLeft + 10) + 'px';
     } else {
@@ -39,7 +40,8 @@
   var hello = document.createTextNode("Cat Moonwalk");
   newPar.appendChild(hello);
   newPar.style.color = "purple";
-  newPar.style.right = "0px";
+  newPar.style.left = "100px";
+  newPar.style.position = 'absolute';
   document.body.appendChild(newPar);
   
   </script>

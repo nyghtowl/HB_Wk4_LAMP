@@ -28,15 +28,18 @@ def disconnect_db(e):
 def authenticate():
 	email = request.form['email']
 	password = request.form['password']
+	# capture the userid information from model-database
 	user_id = model.authenticate(g.db, email, password)
 	session['user_id'] = user_id
+	# after getting the session variable back, you have to point it to a page
+	return redirect("/")
 
 @app.route("/")
 def index():
 	user_id = session.get("user_id", None)
-	if user_id:
-		db_user = model.get_user(g.db, user_id)
-		return render_template("index.html", user_name="George")
+		#if user_id:
+	#	db_user = model.get_user(g.db, user_id)
+	return render_template("index.html", user_name=user_id['first_name'])
 	return 'You are not logged in'
 	
 	# previous attempt at setting up login 
@@ -109,11 +112,11 @@ def login():
 # @app.route('/logout')
 # def logout():
 # 	#remove the username from the session if it's there
-# 	session.pop('username', None)
+# 	session.pop('user_id', None)
 # 	return redirect(url_for('index'))
 
 # #set the secret key. keep this really secret:
-# app.secret_key = 'A0Zr98j/3yX R~XHH! jmN]LWX/ , ?RT'
+app.secret_key = 'A0Zr98j/3yX R~XHH! jmN]LWX/ , ?RT'
 
 
 
